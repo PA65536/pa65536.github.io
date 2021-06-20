@@ -1,39 +1,71 @@
 <html>
-  
+
+<!--
+input: interval
+input: seriescount
+
+ontouchstart, start timer
+if duration > interval: beep
+ontouchend, end timer
+++series
+
+-->
+
 <head>
     <title>Touchstart</title>
 </head>
-  
+
 <body>
     <h1>TouchStart and Click event</h1>
     <button id="button">click me</button>
+    <p id="demo"></p>
+
     <script>
-        
+
         // button element
-        var button1 = document.querySelector("button"); 
-        
-        
+        var button1 = document.querySelector("button");
+
+
         // touchstart handler
-        button1.addEventListener("touchStart", onlyTouch, false); 
-  
-        function onlyTouch(ev) {
-            
-            // Call preventDefault() to prevent any further handling
-            console.log("Here a touchstart event is trigerred"); 
-            ev.preventDefault();
+        button1.addEventListener("touchStart", onlyTouch, false);
+        button1.addEventListener("touchEnd", onTouchEnd, false);
+
+        function onTouchEnd(ev) {
+            document.getElementById("demo").innerHTML = "TOUCH END";
         }
-  
-        // click event handler
-        button1.addEventListener("click", onlyClick, false); 
-  
-        function onlyClick(ev) {
-  
-            // Call preventDefault() to prevent any further handling
-            console.log("Here a click event is trigerred"); 
-            ev.preventDefault();
-            console.log("After triggering an event");
+
+        function onlyTouch(ev) {
+
+            var startTime = new Date().getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = now - startTime;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Output the result in an element with id="demo"
+                document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                    + minutes + "m " + seconds + "s ";
+
+                // If the count down is over, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+
         }
     </script>
 </body>
-  
+
 </html>
