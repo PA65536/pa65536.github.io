@@ -1,3 +1,4 @@
+
 <html>
 
 <!--
@@ -16,26 +17,35 @@ ontouchend, end timer
 </head>
 
 <body>
-    <h1>Test 1</h1>
+    <h1>TouchStart and Click event</h1>
     <button id="button">click me</button>
     <p id="demo"></p>
+    <p ontouchstart="onlyTouch(event)">Touch me!</p>
+    <p onclick="onclick(event)">Click me!</p>
 
     <script>
 
         // button element
         var button1 = document.querySelector("button");
 
+        console.log("asdf")
 
         // touchstart handler
         button1.addEventListener("touchStart", onlyTouch, false);
+        button1.addEventListener("onclick", onclick, false);
         button1.addEventListener("touchEnd", onTouchEnd, false);
 
+        function onclick(ev) {
+            console.log("onclick")
+            document.getElementById("demo").innerHTML = "TOUCH END";
+        }
         function onTouchEnd(ev) {
             document.getElementById("demo").innerHTML = "TOUCH END";
         }
 
         function onlyTouch(ev) {
 
+            console.log("onlyTouch")
             var startTime = new Date().getTime();
 
             // Update the count down every 1 second
