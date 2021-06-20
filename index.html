@@ -23,6 +23,7 @@
     <input type="number" id="timeref" value="5"> secondes<br>
     <p id="time">Temps : 0s</p>
     <p id="reps">Répétition : 0</p>
+    <p id="reps">asdfasdfasdf : 0</p>
     <!--<p id="alarm"></p>-->
     <!--<p ontouchstart="onTouchStart(event)" ontouchend="onTouchEnd(event)">Appuyez ici</p>
     -->
@@ -119,7 +120,7 @@
                 //console.log("timeref " + document.getElementById("timeref").value)
                 if (distance > document.getElementById("timeref").value * 1000) {
                     //document.getElementById("alarm").innerHTML = "alarm"
-                    beep(500, 800)
+                    beep(1000, 700)
                 }
 
             }, 1000);
