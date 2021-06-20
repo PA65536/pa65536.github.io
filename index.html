@@ -1,11 +1,39 @@
+<html>
+  
 <head>
-    <title>1, 2, 3</title>
+    <title>Touchstart</title>
 </head>
+  
 <body>
-    <button onmousedown="alert('mdown')" >Test</button>
-
+    <h1>TouchStart and Click event</h1>
+    <button id="button">click me</button>
     <script>
-        function mdown() { alert('mdwww'); }
-
+        
+        // button element
+        var button1 = document.querySelector("button"); 
+        
+        
+        // touchstart handler
+        button1.addEventListener("touchStart", onlyTouch, false); 
+  
+        function onlyTouch(ev) {
+            
+            // Call preventDefault() to prevent any further handling
+            console.log("Here a touchstart event is trigerred"); 
+            ev.preventDefault();
+        }
+  
+        // click event handler
+        button1.addEventListener("click", onlyClick, false); 
+  
+        function onlyClick(ev) {
+  
+            // Call preventDefault() to prevent any further handling
+            console.log("Here a click event is trigerred"); 
+            ev.preventDefault();
+            console.log("After triggering an event");
+        }
     </script>
 </body>
+  
+</html>
