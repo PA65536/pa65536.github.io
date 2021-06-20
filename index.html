@@ -37,6 +37,7 @@
     </style>
 
     <button class=btn ontouchstart="onTouchStart(event)" ontouchend="onTouchEnd(event)">Appuyez ici</button>
+    <button onclick="beep(1000,440)">BEEP__</button>
     <br />
 
     <script>
@@ -82,20 +83,23 @@
 
         let timerInterval = null;
         let repsCount = 0;
+        let startTime = null;
 
         function onTouchEnd(ev) {
             console.log("onTouchEnd")
             clearInterval(timerInterval)
+            var distance = Date.now() - startTime;
+            if (distance > 1000) {
             ++repsCount
             document.getElementById("reps").innerHTML = "Répétition : " + repsCount.toString();
-        }
+        }}
 
         function onTouchStart(ev) {
 
             //document.getElementById("alarm").innerHTML = ""
 
             console.log("onTouchStart")
-            var startTime = new Date().getTime();
+            startTime = Date.now()
 
             // Update the count down every 1 second
             timerInterval = setInterval(function () {
@@ -107,14 +111,11 @@
                 var distance = now - startTime;
 
                 // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 // Output the result in an element with id="demo"
-                document.getElementById("time").innerHTML = "Temps : " + days + "d " + hours + "h "
-                    + minutes + "m " + seconds + "s ";
+                document.getElementById("time").innerHTML = "Temps : " + minutes + "m " + seconds + "s ";
 
                 //console.log("distance " + distance)
                 //console.log("timeref " + document.getElementById("timeref").value)
