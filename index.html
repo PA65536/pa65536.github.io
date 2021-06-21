@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <label for="timeref">Tenir : </label>
+    <label for="timeref">Tenir </label>
     <input type="number" id="timeref" value="5"> secondes<br>
     <p id="time">Temps : 0s</p>
     <p id="reps">Répétition : 0</p>
@@ -27,13 +27,13 @@
         .btn {
             border: 1px solid;
             color: black;
-            background: gray;
+            background: yellow;
             height: 300px;
             width: 100%;
         }
     </style>
 
-    <button id="start" class=btn ontouchstart="onTouchStart(event)" ontouchend="onTouchEnd(event)">Appuyez ici</button>
+    <button id="start" class=btn ontouchstart="onTouchStart(event)" ontouchend="onTouchEnd(event)"></button>
 
     <script>
         navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
@@ -51,11 +51,11 @@
         let beepAudio = null;
 
         function onTouchEnd(ev) {
-            console.log("onTouchEnd")
+            //console.log("onTouchEnd")
             clearInterval(timerInterval)
             document.getElementById("start").style.backgroundColor = "gray"
-            var distance = Date.now() - startTime;
-            if (distance > 1000) {
+            var duration = Date.now() - startTime;
+            if (duration > 1000) {
                 ++repsCount
                 document.getElementById("reps").innerHTML = "Répétition : " + repsCount.toString();
             }
@@ -75,18 +75,19 @@
 
             // Update the count down every 1 second
             timerInterval = setInterval(function () {
-                var distance = Date.now() - startTime;
+                var duration = Date.now() - startTime;
 
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                var minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((duration % (1000 * 60)) / 1000);
 
                 document.getElementById("time").innerHTML = "Temps : " + minutes + "m " + seconds + "s ";
 
-                //console.log("distance " + distance)
+                //console.log("duration " + duration)
                 //console.log("timeref " + document.getElementById("timeref").value)
-                if (distance > document.getElementById("timeref").value * 1000) {
+                if (duration > document.getElementById("timeref").value * 1000) {
                     beepAudio.play();
                     //document.getElementById("start").style.backgroundColor = "gray"
+                    clearInterval(timerInterval)
                 }
 
             }, 1000);
