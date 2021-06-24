@@ -86,20 +86,13 @@
                 if (duration > document.getElementById("timeref").value * 1000) {
                     //document.getElementById("start").style.backgroundColor = "gray"
                     clearInterval(timerInterval)
-                    beepAudio.src = "./beep.mp3"
-                    console.log("play1")
-                    var audioPromise = beepAudio.play();
-
-                    console.log("play2")
                     if ((repsCount + 1) == document.getElementById("repsref").value) {
-                        //beepAudio.src = "./beep2.mp3"
-                        console.log("play3")
-                        beepAudio.onended = function () { beepAudio.play(); beepAudio.onended = null; }
-                        //beepAudio2.src = "./beep2.mp3"
-                        //beepAudio2.play();
-                        //                        audioPromise.then(function () { beepAudio.play(); })
-                        console.log("play4")
+                        beepAudio.src = "./beep2.mp3"
                     }
+                    else {
+                        beepAudio.src = "./beep.mp3"
+                    }
+                    beepAudio.play();
                 }
 
             }, 1000);
