@@ -90,10 +90,10 @@
             }
         }
 
-        window.addEventListener('mousedown', e => { onTouchStart(e) });
-        window.addEventListener('mouseup', e => { onTouchEnd(e) });
-        window.addEventListener('touchstart', e => { onTouchStart(e) });
-        window.addEventListener('touchend', e => { onTouchEnd(e) });
+        document.addEventListener('mousedown', e => { onTouchStart(e) });
+        document.addEventListener('mouseup', e => { onTouchEnd(e) });
+        document.addEventListener('touchstart', e => { onTouchStart(e) });
+        document.addEventListener('touchend', e => { onTouchEnd(e) });
 
         function onTouchStart(event) {
             if (event.explicitOriginalTarget.nodeName === "INPUT") {
