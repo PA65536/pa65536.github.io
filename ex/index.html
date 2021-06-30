@@ -27,36 +27,33 @@
         }
     </style>
 
-    <!--   
-    <div class="full-height">-->
-    <div>
-        <label for="timeref">Tenir </label>
-        <input type="number" id="timeref" value="5" min="1" max="60" style='width: 40px;'>
-        <input type="button" value="5" onclick="setTimeRef(5)" />
-        <input type="button" value="10" onclick="setTimeRef(10)" />
-        <input type="button" value="30" onclick="setTimeRef(30)" />
-        secondes
-    </div>
-    <div>
-        <label for="time">Temps :</label>
-        <p id="time" style="display:inline-block;">0s</p>
-    </div>
-    <div>
-        <label for="repsref">Répétitions :</label>
-        <input type="number" id="repsref" value="10" style='width: 40px;'>
-        <input type="button" value="2" onclick="setRepsRef(2)" />
-        <input type="button" value="5" onclick="setRepsRef(5)" />
-        <input type="button" value="10" onclick="setRepsRef(10)" />
-        <div>Répétition : <p id="reps" style="display:inline-block;">0</div>
-        asdfasdf
-    </div>
-    <!--        <input type="button" value="Reset" onclick="reset" /><br>-->
+    <div class="full-height">
+        <div>
+            <label for="timeref">Tenir </label>
+            <input type="number" id="timeref" value="5" min="1" max="60" style='width: 40px;'>
+            <input type="button" value="5" onclick="setTimeRef(5)" />
+            <input type="button" value="10" onclick="setTimeRef(10)" />
+            <input type="button" value="30" onclick="setTimeRef(30)" />
+            secondes
+        </div>
+        <div>
+            <label for="time">Temps :</label>
+            <p id="time" style="display:inline-block;">0s</p>
+        </div>
+        <div>
+            <label for="repsref">Répétitions :</label>
+            <input type="number" id="repsref" value="10" style='width: 40px;'>
+            <input type="button" value="2" onclick="setRepsRef(2)" />
+            <input type="button" value="5" onclick="setRepsRef(5)" />
+            <input type="button" value="10" onclick="setRepsRef(10)" />
+            <div>Répétition : <p id="reps" style="display:inline-block;">0</div>
+        </div>
+        <!--        <input type="button" value="Reset" onclick="reset" /><br>-->
 
-    <!--   
         <button id="start" class=btn onmousedown="onTouchStart(event)" onmouseup="onTouchEnd(event)"
-            ontouchstart="onTouchStart(event)" ontouchend="onTouchEnd(event)"></button>-->
-    <!--    
-    </div>-->
+            ontouchstart="onTouchStart(event)" ontouchend="onTouchEnd(event)"></button>
+    </div>
+
     <script>
         function setTimeRef(timeSecs) {
             document.getElementById("timeref").value = timeSecs
@@ -73,33 +70,17 @@
         let beepAudio = null;
 
         function onTouchEnd(ev) {
-            if (event.explicitOriginalTarget.nodeName === "INPUT") {
-                return
-            }
             //console.log("onTouchEnd")
             clearInterval(timerInterval)
-            //document.getElementById("start").style.backgroundColor = "gray"
-            document.bgColor = "white"
+            document.getElementById("start").style.backgroundColor = "gray"
             var duration = Date.now() - startTime;
             if (duration > 1000) {
                 ++repsCount
-
-                if (repsCount == document.getElementById("repsref").value) {
-                    repsCount = 0
-                }
                 document.getElementById("reps").innerHTML = repsCount;
             }
         }
 
-        document.addEventListener('mousedown', e => { onTouchStart(e) });
-        document.addEventListener('mouseup', e => { onTouchEnd(e) });
-        document.addEventListener('touchstart', e => { onTouchStart(e) });
-        document.addEventListener('touchend', e => { onTouchEnd(e) });
-
         function onTouchStart(event) {
-            if (event.explicitOriginalTarget.nodeName === "INPUT") {
-                return
-            }
             event.preventDefault()
             clearInterval(timerInterval)
 
@@ -109,15 +90,15 @@
             beepAudio.src = "./beep.mp3"
             beepAudio.play()
 
-            //document.getElementById("start").style.backgroundColor = "green"
-            document.bgColor = "green"
+            document.getElementById("start").style.backgroundColor = "green"
 
             timerInterval = setInterval(async function () {
                 var duration = Date.now() - startTime;
 
-                var seconds = Math.floor(duration / 1000);
+                var minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((duration % (1000 * 60)) / 1000);
 
-                document.getElementById("time").innerHTML = seconds + "s ";
+                document.getElementById("time").innerHTML = minutes + "m " + seconds + "s ";
 
                 //console.log("duration " + duration)
                 //console.log("timeref " + document.getElementById("timeref").value)
